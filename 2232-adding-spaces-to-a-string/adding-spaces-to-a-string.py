@@ -1,14 +1,14 @@
 class Solution:
     def addSpaces(self, s: str, spaces: List[int]) -> str:
-        finalAns = ""
+        result = []
         start = 0  
 
         for space in spaces:
-           finalAns += s[start:space] + " "
+           result.append(s[start:space])
            start = space 
 
 
-        finalAns += s[start:]
-
+        result.append(s[start:])
+        finalAns = " ".join(result)
         return finalAns
         
