@@ -1,28 +1,14 @@
 class Solution:
-    def vowelStrings(self, words: List[str], queries: List[List[int]]) -> List[int]:
-        # Dictionary to mark words that start and end with vowels
-        mp = {}
-        vowels = set('aeiou')
-        
-        # Check each word and mark if it starts and ends with vowel
-        for i in range(len(words)):
-            if words[i][0] in vowels and words[i][-1] in vowels:
-                mp[i] = 1
-        
-        # Create prefix sum array
-        prefix = [0] * len(words)
-        prefix[0] = mp.get(0, 0)  # Handle case when first word doesn't start/end with vowels
-        
-        # Build prefix sum array
-        for i in range(1, len(words)):
-            prefix[i] = prefix[i-1] + mp.get(i, 0)
-        
-        # Process queries
-        ans = []
-        for left, right in queries:
-            if left == 0:
-                ans.append(prefix[right])
-            else:
-                ans.append(prefix[right] - prefix[left-1])
-                
-        return ans
+   def valid(self, s: str) -> bool:
+       vowels = set('aeiou')
+       return s[0] in vowels and s[-1] in vowels
+       
+   def vowelStrings(self, words: List[str], queries: List[List[int]]) -> List[int]:
+       n = len(words)
+       prefix = [0] * n
+       prefix[0] = 1 if self.valid(words[0]) else 0
+       
+       for i in range(1, n):
+           prefix[i] = prefix[i-1] + (1 if self.valid(words[i]) else 0)
+           
+       return [prefix[q[1]] if q[0] == 0 else prefix[q[1]] - prefix[q[0]-1] for q in queries]
