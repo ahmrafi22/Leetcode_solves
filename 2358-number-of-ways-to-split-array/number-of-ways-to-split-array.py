@@ -1,6 +1,5 @@
 class Solution:
     def waysToSplitArray(self, nums: List[int]) -> int:
-        self.nums=nums
         total=sum(nums)
         left_sum=0
         count=0
