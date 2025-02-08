@@ -1,25 +1,21 @@
-from collections import defaultdict
-from sortedcontainers import SortedSet
-
 class NumberContainers:
+
     def __init__(self):
-        self.index_to_number = {}
-        # Maps number to set of indices containing that number
-        self.number_to_indices = defaultdict(SortedSet)
-        
+        def heap_factory():
+            return []
+        self.index=dict()
+        self.number=defaultdict(heap_factory)
+
     def change(self, index: int, number: int) -> None:
-        if index in self.index_to_number:
-            old_number = self.index_to_number[index]
-            self.number_to_indices[old_number].remove(index)
-            
-        # Update mappings
-        self.index_to_number[index] = number
-        self.number_to_indices[number].add(index)
-        
+        self.index[index]=number
+        heappush(self.number[number],index)
     def find(self, number: int) -> int:
-        # Return smallest index containing the number, or -1 if none exists
-        indices = self.number_to_indices[number]
-        return indices[0] if indices else -1
+        while self.number[number]:
+            idx=heappop(self.number[number])
+            if self.index[idx]==number:
+                heappush(self.number[number],idx)
+                return idx
+        return -1
         
 
 
