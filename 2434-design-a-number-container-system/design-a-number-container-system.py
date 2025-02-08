@@ -1,20 +1,23 @@
 class NumberContainers:
-
     def __init__(self):
-        def heap_factory():
-            return []
-        self.index=dict()
-        self.number=defaultdict(heap_factory)
+        self.idx_map = {}
+        self.num_to_indices = defaultdict(list)
 
     def change(self, index: int, number: int) -> None:
-        self.index[index]=number
-        heappush(self.number[number],index)
+        # Store new mapping and add to heap
+        self.idx_map[index] = number
+        heappush(self.num_to_indices[number], index)
+
     def find(self, number: int) -> int:
-        while self.number[number]:
-            idx=heappop(self.number[number])
-            if self.index[idx]==number:
-                heappush(self.number[number],idx)
+        heap = self.num_to_indices[number]
+        
+        
+        while heap:
+            idx = heap[0]  # Peek at smallest index without popping
+            if self.idx_map.get(idx, None) == number:
                 return idx
+            heappop(heap)  
+            
         return -1
         
 
