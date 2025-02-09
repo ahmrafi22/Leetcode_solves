@@ -3,5 +3,5 @@ class Solution:
         n = len(nums)
         from collections import Counter
         count = Counter(x - i for i, x in enumerate(nums))
-        good = sum(v * (v - 1) >> 1 for v in count.values())
-        return (n * (n - 1) >> 1) - good
+        good = sum(v * (v - 1) // 2 for v in count.values())
+        return (n * (n - 1) // 2) - good
