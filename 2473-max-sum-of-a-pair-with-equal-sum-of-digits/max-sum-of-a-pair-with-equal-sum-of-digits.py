@@ -1,16 +1,13 @@
-class Solution:
-    def maximumSum(self, nums: list[int]) -> int:
-        kMax = 9 * 9
-        ans = -1
-        count = [[] for _ in range(kMax + 1)]
-        for num in nums:
-            count[self._getDigitSum(num)].append(num)
-        for groupNums in count:
-            if len(groupNums) < 2:
-                continue
-            groupNums.sort(reverse=True)
-            ans = max(ans, groupNums[0] + groupNums[1])
-        return ans
+from collections import defaultdict
 
-    def _getDigitSum(self, num: int) -> int:
-        return sum(int(digit) for digit in str(num))
+class Solution:
+    def maximumSum(self, nums: List[int]) -> int:
+        max_seen = defaultdict(lambda: 0)
+        ans = -float('inf')
+        for i in nums:
+            digit_sum = sum(int(digit) for digit in str(i))
+            if digit_sum in max_seen:
+                ans = max(max_seen[digit_sum] + i, ans)
+            if i > max_seen[digit_sum]:
+                max_seen[digit_sum] = i
+        return ans if ans != -float('inf') else -1
