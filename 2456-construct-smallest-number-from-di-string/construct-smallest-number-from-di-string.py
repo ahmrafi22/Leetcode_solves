@@ -1,14 +1,16 @@
 class Solution:
     def smallestNumber(self, pattern: str) -> str:
-        st = ['1']
-        n = 1
-        res = ''
-        for char in pattern:
-            if char == 'I':
-                while st:
-                    res += st.pop()
-            
-            n += 1
-            st.append(str(n))
+        n = len(pattern)
+        result = []
+        stack = []
+    
 
-        return res + ''.join(st[::-1])
+        for i in range(n + 1):
+            stack.append(str(i + 1))
+            
+           
+            if i == n or pattern[i] == 'I':
+                while stack:
+                    result.append(stack.pop())
+                    
+        return ''.join(result)
