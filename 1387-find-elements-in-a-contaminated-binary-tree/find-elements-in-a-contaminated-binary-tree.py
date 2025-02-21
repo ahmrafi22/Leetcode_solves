@@ -6,22 +6,21 @@
 #         self.right = right
 class FindElements:
     def __init__(self, root: Optional[TreeNode]):
-        self.root = root
-
+        self.values = set()
+        self._recover_tree(root, 0)
+    
+    def _recover_tree(self, node: TreeNode, value: int) -> None:
+        if not node:
+            return
+            
+        node.val = value
+        self.values.add(value)
+        
+        self._recover_tree(node.left, 2 * value + 1)
+        self._recover_tree(node.right, 2 * value + 2)
+    
     def find(self, target: int) -> bool:
-        if target == 0:
-            return self.root is not None
-        
-        path = target + 1
-        depth = path.bit_length() - 1
-        node = self.root
-        mask = 1 << (depth - 1)
-        while mask > 0 and node is not None:
-            node = node.left if (path & mask) == 0 else node.right    
-            mask >>= 1
-        
-        return node is not None
-        
+        return target in self.values
 
 
 # Your FindElements object will be instantiated and called as such:
