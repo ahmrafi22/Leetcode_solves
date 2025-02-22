@@ -5,42 +5,17 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def recoverFromPreorder(self, traversal: str) -> Optional[TreeNode]:
-        if not traversal:
-            return None
+    def recoverFromPreorder(self, data: str) -> Optional[TreeNode]:
+        if not data: return None
+        for i in range(100, 0, -1):
+            data = data.replace("-" * i, chr(i + 65))
             
-        # Stack to keep track of nodes at different levels
-        stack = []
-        i = 0
-        
-        while i < len(traversal):
-            # Count the number of dashes to determine level
-            level = 0
-            while i < len(traversal) and traversal[i] == '-':
-                level += 1
-                i += 1
+        def build_tree(parts: str, level: int) -> Optional[TreeNode]:
+            if not parts: return None
+            parts = parts.split(chr(level + 65))
+            node = TreeNode(int(parts[0]))
+            node.left = build_tree(parts[1], level + 1) if len(parts) > 1 else None
+            node.right = build_tree(parts[2], level + 1) if len(parts) > 2 else None
+            return node
             
-            # Get the node value
-            value = 0
-            while i < len(traversal) and traversal[i].isdigit():
-                value = value * 10 + int(traversal[i])
-                i += 1
-            
-            # Create new node
-            node = TreeNode(value)
-            
-            # Pop nodes from stack if current level is less than stack size
-            while len(stack) > level:
-                stack.pop()
-            
-            # Connect the node to its parent
-            if stack:
-                if not stack[-1].left:
-                    stack[-1].left = node
-                else:
-                    stack[-1].right = node
-            
-            stack.append(node)
-        
-        # Return the root node (first node in the traversal)
-        return stack[0]
+        return build_tree(data, 1)
