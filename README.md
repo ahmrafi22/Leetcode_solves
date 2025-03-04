@@ -8,7 +8,7 @@
 
 
 ## 🚀 December 2024 - February 2025
-![LeetCode Solves](https://github.com/Raf-codes/Leetcode_solves/blob/main/assests/Dec-Feb.png?raw=true)
+[![LeetCode Solves](https://github.com/Raf-codes/Leetcode_solves/blob/main/assests/Dec-Feb.png?raw=true)](https://leetcode.com/u/AhmRafi/)
 
 Did a 90 DAYS marathon and solved 90+ Problems. Mostly in Python. Planing to add more after a few days break
 
