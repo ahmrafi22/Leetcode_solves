@@ -6,7 +6,18 @@ class Solution:
         n = len(nums)
         k = k % n  
         
-        for i in range(k):
-            last_element = nums[-1]
-            nums.insert(0, last_element)
-            nums.pop()
+
+        def reverse(start, end):
+            while start < end:
+                nums[start], nums[end] = nums[end], nums[start]
+                start += 1
+                end -= 1
+        
+
+        reverse(0, n - 1)
+        
+
+        reverse(0, k - 1)
+        
+
+        reverse(k, n - 1)
