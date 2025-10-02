@@ -5,13 +5,9 @@ class Solution:
             if i in 'aeiouAEIOU':
                 vowels.append(i)
         
-        vowels.reverse()
-        
         s = list(s)
-        j = 0
         for idx in range(len(s)):
             if s[idx] in 'aeiouAEIOU':
-                s[idx] = vowels[j]
-                j += 1
+                s[idx] = vowels.pop()
         
         return ''.join(s)
