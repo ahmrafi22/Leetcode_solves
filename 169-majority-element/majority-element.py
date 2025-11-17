@@ -1,9 +1,10 @@
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        seen = {}
-        for i in nums:
-            if i in seen:
-                seen[i] += 1
-            else:
-                seen[i] = 1
-        return max(seen, key=seen.get)
+        dict = {}
+        for i, val in enumerate(nums):
+            dict[val] = dict.get(val, 0) + 1
+
+        for val in dict:
+            if dict[val] > (len(nums)/2):
+                return val 
+
